@@ -9,7 +9,7 @@ WiFiClient client;
 
 void setup() {
  Serial.begin(9600);
- Serial.print("Tryin' to connect");
+ Serial.println("Tryin' to connect");
  while (status != WL_CONNECTED){
    status=WiFi.begin(ssid, password);
    delay(10000);
