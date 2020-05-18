@@ -1,9 +1,9 @@
 #include <Arduino.h>
 #include <WiFi.h>
 
-char ssid[]="ChEM1234";
-char password[]="738Rus4888";
-char servername[]="google.com";
+char ssid[]="urssid";
+char password[]="urpassword";
+char servername[]="p4.zmail.in.net";
 int status=WL_IDLE_STATUS;
 WiFiClient client;
 
@@ -14,12 +14,29 @@ void setup() {
    status=WiFi.begin(ssid, password);
    delay(10000);
  }
- Serial.println("Connected");
+ Serial.println("Connected to WiFi");
  if (client.connect(servername, 80)){
    Serial.println("connected to site");
- }
+ };
+ client.println("GET /v1/x4.html?device=3&event=2&status=1");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // Если от сервера поступили данные, то
+  // считываем их и выводим:
+  if (client.available()) {
+    char c = client.read();
+    Serial.print(c);
+  }
+
+  // если соединение с сервером разорвано, то останавливаем клиент:
+  if (!client.connected()) {
+    Serial.println();
+    Serial.println("disconnecting.");
+    client.stop();
+
+    // больше ничего не делаем:
+    for(;;)
+      ;
+  }
 }
