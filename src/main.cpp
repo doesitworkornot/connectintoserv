@@ -12,7 +12,7 @@ void setup() {
  Serial.println("Tryin' to connect");
  while (status != WL_CONNECTED){
    status=WiFi.begin(ssid, password);
-   delay(10000);
+   delay(1000);
  }
  Serial.println("Connected to WiFi");
  if (client.connect(servername, 80)){
